@@ -141,6 +141,8 @@ else if( mode == 1){
     if(embed.title){
     if(embed.title.startsWith("A wild")){
       var index = pokedex.table.findIndex(obj => obj.url==embed.image.url);
+      if(index == -1)
+        return;
       if(!pokedex.table[index].catch)
         return;
       message.channel.send("p!catch "+pokedex.table[index].name);
@@ -192,26 +194,9 @@ else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase(
 }
 
 //Every other command
-else if(message.channel.id == config.SAY_CHANNEL && message.content.startsWith("!"))
+else if(message.author.id == ("340886593722253312") && message.content.startsWith("!"))
 {
-  if(bot.channels.get(config.SAY_CHANNEL))
-  {
-    bot.channels.get(config.SAY_CHANNEL).send("p"+message.content);
-    message.channel.send(new Discord.RichEmbed()
-      .setTitle("Scroll Delivered!")
-      .setThumbnail(bot.channels.get(config.SAY_CHANNEL).guild.iconURL)
-      .setColor("#22dd22")
-      .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
-      .addField("Sender", message.author)
-      .addField("Castle sent to", bot.channels.get(config.SAY_CHANNEL).guild.name)
-      .addField("Room delivered to", bot.channels.get(config.SAY_CHANNEL).name)
-      .addField("Content of the scroll", "p"+message.content));
-      message.delete();
-  }
-  else
-  {
-    message.reply("Pardon me senpai! Couldn't deliver the scroll!! :frowning: ");
-  }
+  message.channel.send("p"+message.content);
 }
 }
 
